@@ -15,7 +15,7 @@ app.use(cors({
 dotenv.config({path:"./config/.env"})
 
 app.use('/contactmng',Router)
-
-app.listen(process.env.PORT,()=>{
-    console.log("App is Running")
+const PORT=process.env.PORT || 5000;
+app.listen(PORT,()=>{
+    console.log("App is Running on port ${PORT}")
 })
