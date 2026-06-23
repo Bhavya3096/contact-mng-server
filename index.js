@@ -11,8 +11,14 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: "https://contact-client-lioq4vqqs-m-bhavya-s-projects.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  origin: function (origin, callback) {
+    if (!origin || origin.includes("vercel.app")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 connectDB();
